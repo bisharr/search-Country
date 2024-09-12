@@ -5,6 +5,8 @@ const countriesContainer = document.querySelector('.countries');
 
 const rendercountry = function (data, className = '') {
   const currencyValues = Object.values(data.currencies);
+  console.log(currencyValues[0]);
+  console.log(data.currencies);
   const languages = Object.values(data.languages);
   const html = `<article class="country ${className}">
     <img class="country__img" src=${data.flags.png} />
@@ -68,7 +70,22 @@ const rendercountry = function (data, className = '') {
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
-    .then(data => rendercountry(data[0]));
+    .then(data => {
+      // console.log(data.borders[0]);
+
+      rendercountry(data[0]);
+      const neighbour = data[0].borders[0];
+
+      if (!neighbour) return;
+      //Country 2
+      return fetch(`https://restcountries.com/v3.1/name/${neighbour}`)
+        .then(response => response.json())
+        .then(
+          data => rendercountry(data[0], 'neighbour')
+
+          // console.log(data.borders[0]);
+        );
+    });
 };
 getCountryData('portugal');
-getCountryData('somalia');
+getCountryData('france');
