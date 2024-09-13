@@ -1,6 +1,7 @@
 'use strict';
 
 const btn = document.querySelector('.btn-country');
+// console.log(btn);
 const countriesContainer = document.querySelector('.countries');
 
 const rendercountry = function (data, className = '') {
@@ -66,10 +67,19 @@ const rendercountry = function (data, className = '') {
 //   console.log(this.status);
 
 // });
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  countriesContainer.style.opacity = 1;
+};
 
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
+    .catch(err => {
+      console.error(err + ' problems');
+      renderError(err.message);
+      console.log(err);
+    })
     .then(data => {
       // console.log(data.borders[0]);
 
@@ -80,12 +90,14 @@ const getCountryData = function (country) {
       //Country 2
       return fetch(`https://restcountries.com/v3.1/name/${neighbour}`)
         .then(response => response.json())
-        .then(
-          data => rendercountry(data[0], 'neighbour')
-
-          // console.log(data.borders[0]);
-        );
+        .then(data => rendercountry(data[0], 'neighbour'))
+        .catch(err => {
+          alert(err);
+          console.error(err + ' problems');
+          renderError(err);
+        });
     });
 };
-getCountryData('portugal');
-getCountryData('france');
+btn.addEventListener('click', function () {
+  getCountryData('portugal');
+});
