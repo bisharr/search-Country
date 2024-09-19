@@ -8,16 +8,45 @@ html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
-
+h2 {
+  font-size: 2.7rem;
+  text-align: center;
+}
+.inputs {
+  max-width: 120rem;
+  margin: 5rem auto;
+  padding: 5rem;
+  background-color: aquamarine;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.4prem 0.8rem 0 rgba(0, 0, 0, 0.2),
+    0 0.6rem 0.2rem 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+.inputs input,
+.inputs button {
+  width: 70%;
+  padding: 0.5rem;
+  outline: none;
+  border: 0.1rem solid dodgerblue;
+  border-radius: 0.2rem;
+}
+.inputs button {
+  cursor: pointer;
+  font-size: 1.8rem;
+}
 body {
   font-family: system-ui;
   color: #555;
   background-color: #f7f7f7;
   min-height: 100vh;
-
+  /* 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .container {
