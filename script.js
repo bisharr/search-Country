@@ -6,8 +6,7 @@ const countriesContainer = document.querySelector('.countries');
 
 const rendercountry = function (data, className = '') {
   const currencyValues = Object.values(data.currencies);
-  console.log(currencyValues[0]);
-  console.log(data.currencies);
+
   const languages = Object.values(data.languages);
   const html = `<article class="country ${className}">
     <img class="country__img" src=${data.flags.png} />
@@ -74,12 +73,11 @@ const renderError = function (msg) {
 
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
-    .catch(err => {
-      console.error(err + ' problems');
-      renderError(err.message);
-      console.log(err);
+    .then(response => {
+      console.log(response);
+      return response.json();
     })
+
     .then(data => {
       // console.log(data.borders[0]);
 
@@ -90,14 +88,15 @@ const getCountryData = function (country) {
       //Country 2
       return fetch(`https://restcountries.com/v3.1/name/${neighbour}`)
         .then(response => response.json())
-        .then(data => rendercountry(data[0], 'neighbour'))
-        .catch(err => {
-          alert(err);
-          console.error(err + ' problems');
-          renderError(err);
-        });
+        .then(data => rendercountry(data[0], 'neighbour'));
+    })
+    .catch(err => {
+      console.error(err.message + ' problems');
+      renderError(`Something went wrong ${err.message}. try again`);
+      console.log(err);
     });
 };
 btn.addEventListener('click', function () {
   getCountryData('portugal');
+  getCountryData('ueudd');
 });
