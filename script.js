@@ -71,13 +71,44 @@ const renderError = function (msg) {
   countriesContainer.style.opacity = 1;
 };
 
-const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => {
-      console.log(response);
-      return response.json();
-    })
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(response => {
+//       console.log(response);
+//       if (!response.ok) throw new Error('country not Found');
+//       return response.json();
+//     })
 
+//     .then(data => {
+//       // console.log(data.borders[0]);
+
+//       rendercountry(data[0]);
+//       const neighbour = data[0].borders[0];
+
+//       if (!neighbour) return;
+//       //Country 2
+//       return fetch(`https://restcountries.com/v3.1/name/${neighbour}`)
+//         .then(response => {
+//           if (!response.ok) throw new Error('country has no neighbour');
+//           return response.json();
+//         })
+//         .then(data => rendercountry(data[0], 'neighbour'));
+//     })
+//     .catch(err => {
+//       console.error(err.message + ' problems');
+//       renderError(`Something went wrong ${err.message}. try again`);
+//       console.log(err);
+//     });
+// };
+
+const getJason = function (url, msg = 'no') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(msg);
+    return response.json();
+  });
+};
+const getCountryData = function (country) {
+  getJason(`https://restcountries.com/v3.1/name/${country}`, 'No country found')
     .then(data => {
       // console.log(data.borders[0]);
 
@@ -86,9 +117,10 @@ const getCountryData = function (country) {
 
       if (!neighbour) return;
       //Country 2
-      return fetch(`https://restcountries.com/v3.1/name/${neighbour}`)
-        .then(response => response.json())
-        .then(data => rendercountry(data[0], 'neighbour'));
+      return getJason(
+        `https://restcountries.com/v3.1/name/${neighbour}`,
+        'No neigbor found'
+      ).then(data => rendercountry(data[0], 'neighbour'));
     })
     .catch(err => {
       console.error(err.message + ' problems');
@@ -100,3 +132,31 @@ btn.addEventListener('click', function () {
   getCountryData('portugal');
   getCountryData('ueudd');
 });
+
+// challenge 1
+
+const knowWhere = function (lat, lan) {
+  fetch(`https://geocode.xyz/${lat},${lan}?geoit=json`)
+    .then(response => {
+      console.log(response);
+      if (!response.ok) throw new Error('No country found');
+      return response.json();
+    })
+
+    .then(data => {
+      console.log(data);
+      console.log(data.city);
+      console.log(data.country);
+    })
+    .catch(err => {
+      console.error(err.message);
+      console.log(err.message);
+    });
+};
+knowWhere('52.508', '13.381');
+knowWhere('19.037', '72.873');
+knowWhere('-3.93', '18.74');
+
+// tes1 52.508, 13.381
+// tes2  19.037 ,72.873
+// tes3  -33.933, 18.474
