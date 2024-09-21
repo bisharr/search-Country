@@ -12,7 +12,18 @@ h2 {
   font-size: 2.7rem;
   text-align: center;
 }
+.title {
+  /* background-color: #1a1dc9; */
+  color: #1b1a1a;
+  font-size: 3.2rem;
+  padding: 2rem 1rem;
+  border-radius: 0.4rem;
+  text-transform: uppercase;
+  text-align: center;
+  /* box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.726); */
+}
 .inputs {
+  box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.726);
   max-width: 120rem;
   margin: 5rem auto;
   padding: 5rem;
