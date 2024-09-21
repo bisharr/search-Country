@@ -28,14 +28,19 @@ const rendercountry = function (data, className = '') {
 };
 
 const searchCountry = async function () {
-  console.log('click');
   let inputValue = input.value;
-
-  const response = await fetch(
-    `https://restcountries.com/v3.1/name/${inputValue}`
-  );
-  const data = await response.json();
-  rendercountry(data[0]);
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${inputValue}`
+    );
+    if (!response.ok)
+      throw new Error(`there is no Country named (${inputValue})`);
+    const data = await response.json();
+    errorMassage.textContent = '';
+    rendercountry(data[0]);
+  } catch (error) {
+    errorMassage.textContent = `${error.message}`;
+  }
 
   input.value = '';
 };
