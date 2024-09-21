@@ -159,3 +159,34 @@ body {
   border: 3rem solid white;
   box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
 }
+.geolocation {
+  max-width: 100rem;
+  margin: 3rem auto;
+  padding: 3rem;
+  background-color: #555;
+  text-align: center;
+  border-radius: 0.3rem;
+}
+.geolocation input {
+  padding: 2rem;
+  border-radius: 0.3rem;
+  font-size: 1.3rem;
+  width: 70%;
+  border: none;
+  color: white;
+  outline: solid dodgerblue 0.1rem;
+}
+.geolocation h2 {
+  color: white;
+  margin-top: 0.2rem;
+  font-size: 1.3rem;
+}
+.geolocation button {
+  padding: 1.2rem;
+  border-radius: 0.3rem;
+  font-size: 1.1rem;
+  width: 70%;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
